@@ -1,3 +1,7 @@
 fn main() {
-    println!("Hello, Rust Bootcamp by VBI Academy!");
+    let mut x = vec![1, 2, 3, 4];
+    x.iter().map(|x| {
+        x*2;
+    });
+    println!("{:?}", x);    
 }
