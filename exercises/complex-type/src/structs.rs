@@ -2,10 +2,17 @@
 // Fix the error
 // Make it compile
 // Run test
+#[derive(Debug)]
 struct Person {
     name: String,
     age: u8,
     hobby: String
+}
+impl PartialEq for Person {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name && self.age == other.age && self.hobby == other.hobby
+    }
+    
 }
 fn exercise1() -> Person {
     let age = 30;
@@ -39,12 +46,12 @@ impl Agent {
 
     // Get the name of the person
     fn get_name(&self) -> &str {
-        todo!()
+        &self.name
     }
 
     // Get the age of the person
     fn get_age(&self) -> u32 {
-        todo!()
+        self.age.clone()
     }
 }
 
@@ -61,18 +68,18 @@ impl Calculator {
         Calculator { value: 0 }
     }
 
-    fn add(&self, num: i32) {
+    fn add(&mut self, num: i32) {
         self.value += num;
     }
 
-    fn subtract(mut self, num: i32) {
+    fn subtract(&mut self, num: i32) {
         self.value -= num;
     }
-    fn clear(self) {
+    fn clear(&mut self) {
         self.value = 0;
     }
 
-    fn get_value(self) -> i32 {
+    fn get_value(&self) -> i32 {
         self.value
     }
 }
@@ -93,9 +100,11 @@ fn exercise4() {
         age: 22,
     };
 
+    
     let u2 = User {
         first: String::from("Mary"),
-        ..u1
+        last:u1.last.clone(),
+        age: u1.age.clone(),
         
     };
 
@@ -105,10 +114,12 @@ fn exercise4() {
 
 // Exercise 5
 // Make it compile
+//#[derive(Copy)]
 struct Foo {
     str_val: String,
     int_val: i32,
 }
+
 
 fn exercise5() {
     let mut foos = Vec::new();
@@ -122,10 +133,10 @@ fn exercise5() {
     });
 
     
-    let moved = foos[0];
+    let moved = &foos[0];
 
     
-    let moved_field = foos[0].str_val;
+    let moved_field = &foos[0].str_val;
 }
 
 // Exercise 6
@@ -149,16 +160,17 @@ impl Package {
                 sender_country,
                 recipient_country,
                 weight_in_grams,
-            }
+            }   
         }
     }
 
-    fn is_international(&self) -> ??? {
+    fn is_international(&self) -> bool {
         // Something goes here...
+        return self.recipient_country != self.sender_country
     }
 
-    fn get_fees(&self, cents_per_gram: i32) -> ??? {
-        // Something goes here...
+    fn get_fees(&self, cents_per_gram: i32) -> i32 {
+        return cents_per_gram*self.weight_in_grams
     }
 }
 
