@@ -49,7 +49,6 @@ fn is_prime(n: u32) -> bool {
     todo!()
 }
 
-
 // Don't mind this for now :)
 #[cfg(test)]
 mod tests {
@@ -143,6 +142,4 @@ mod tests {
         assert_eq!(is_prime(10), false);
         assert_eq!(is_prime(15), false);
     }
-
-
 }

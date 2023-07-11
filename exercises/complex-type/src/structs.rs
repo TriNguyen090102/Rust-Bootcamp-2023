@@ -6,21 +6,20 @@
 struct Person {
     name: String,
     age: u8,
-    hobby: String
+    hobby: String,
 }
 impl PartialEq for Person {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name && self.age == other.age && self.hobby == other.hobby
     }
-    
 }
 fn exercise1() -> Person {
     let age = 30;
-    // Hobby = Rust 
+    // Hobby = Rust
     let p = Person {
         name: String::from("sunface"),
         age,
-        hobby: String::from("Rust")
+        hobby: String::from("Rust"),
     };
 
     p
@@ -32,7 +31,7 @@ fn exercise1() -> Person {
 // Run test
 
 // Define the struct
-struct Agent  {
+struct Agent {
     name: String,
     age: u32,
 }
@@ -100,16 +99,13 @@ fn exercise4() {
         age: 22,
     };
 
-    
     let u2 = User {
         first: String::from("Mary"),
-        last:u1.last.clone(),
+        last: u1.last.clone(),
         age: u1.age.clone(),
-        
     };
 
     println!("user: {:#?}", u1);
-
 }
 
 // Exercise 5
@@ -119,7 +115,6 @@ struct Foo {
     str_val: String,
     int_val: i32,
 }
-
 
 fn exercise5() {
     let mut foos = Vec::new();
@@ -132,10 +127,8 @@ fn exercise5() {
         int_val: 20,
     });
 
-    
     let moved = &foos[0];
 
-    
     let moved_field = &foos[0].str_val;
 }
 
@@ -160,17 +153,17 @@ impl Package {
                 sender_country,
                 recipient_country,
                 weight_in_grams,
-            }   
+            }
         }
     }
 
     fn is_international(&self) -> bool {
         // Something goes here...
-        return self.recipient_country != self.sender_country
+        return self.recipient_country != self.sender_country;
     }
 
     fn get_fees(&self, cents_per_gram: i32) -> i32 {
-        return cents_per_gram*self.weight_in_grams
+        return cents_per_gram * self.weight_in_grams;
     }
 }
 
@@ -186,10 +179,9 @@ mod tests {
         let p_expectation = Person {
             name: String::from("sunface"),
             age: 30,
-            hobby:String::from("Rust") 
+            hobby: String::from("Rust"),
         };
         assert_eq!(p, p_expectation);
-        
     }
 
     // Test for exercise 2
@@ -217,9 +209,7 @@ mod tests {
 
         calculator.clear();
         assert_eq!(calculator.get_value(), 0);
-
     }
-
 
     // Test for exercise 6
     #[test]
@@ -265,5 +255,4 @@ mod tests {
         assert_eq!(package.get_fees(cents_per_gram), 4500);
         assert_eq!(package.get_fees(cents_per_gram * 2), 9000);
     }
-
 }

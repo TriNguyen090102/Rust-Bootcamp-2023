@@ -12,12 +12,12 @@ fn exercise1() {
 // Don't modify code in exercise2 function!
 fn exercise2() {
     let s1 = String::from("hello, world");
-    let s2 = take_ownership(s1);
+    let s2 = take_ownership(&s1);
 
-    println!("{}", s2);
+    println!("{}", *s2);
 }
 // Only modify the code below!
-fn take_ownership(s: String) {
+fn take_ownership(s: &String) {
     println!("{}", s);
 }
 
@@ -110,7 +110,7 @@ fn exercise7() {
 // Make it compile
 fn exercise8() {
     let mut accounting = vec!["Alice", "Ben"];
-    
+
     loop {
         let mut add_input = String::from("");
 
