@@ -1,3 +1,5 @@
+use std::process::Output;
+
 // Exercise 1
 // Fill in the two impl blocks to make the code work.
 // Make it compile
@@ -13,10 +15,19 @@ trait Hello {
 //TODO 
 struct Student {}
 impl Hello for Student {
+    fn say_something(&self) -> String {
+        String::from("I'm a good student")
+    }  
 }
 //TODO
 struct Teacher {}
 impl Hello for Teacher {
+    fn say_something(&self) -> String {
+        String::from("I'm not a bad teacher")
+    }
+    fn say_hi(&self) -> String {
+        String::from("Hi, I'm your new teacher")
+    }
 }
 
 
@@ -24,6 +35,8 @@ impl Hello for Teacher {
 // Make it compile in unit test for exercise 2
 // Hint: use #[derive]  for struct Point 
 // Run tests
+#[derive(PartialEq)]
+#[derive(Debug)]
 struct Point {
     x: i32,
     y: i32,
@@ -35,7 +48,8 @@ struct Point {
 // Implement `fn sum` with trait bound in two ways.
 // Run tests
 // Hint: Trait Bound
-fn sum<T>(x: T, y: T) -> T {
+use std::ops::Add;
+fn sum<T: std::ops::Add<Output = T>>(x: T, y: T) -> T {
     x + y
 }
 
@@ -57,12 +71,12 @@ impl Foo for String {
 }
 
 // IMPLEMENT below with generics and parameters
-fn static_dispatch(x) {
+fn static_dispatch<T>(x : T) {
     todo!()
 }
 
 // Implement below with trait objects and parameters
-fn dynamic_dispatch(x) {
+fn dynamic_dispatch<T>(x: T) {
     todo!()
 }
 
@@ -90,7 +104,7 @@ fn draw_with_box(x: Box<dyn Draw>) {
     x.draw();
 }
 
-fn draw_with_ref(x: __) {
+fn draw_with_ref(x: &dyn Draw) {
     x.draw();
 }
 
@@ -99,15 +113,34 @@ fn draw_with_ref(x: __) {
 // Run tests
 // Hint: Associated Type
 
-trait Container {
+trait Container<T> {
     type Item;
     fn insert(&mut self, item: Self::Item);
     fn remove(&mut self) -> Option<Self::Item>;
     fn is_empty(&self) -> bool;
 }
 
-struct Stack {
-    items: Vec<u8>,
+struct Stack<T> {
+    items: Vec<T>,
+}
+impl<u8> Container<u8> for Stack<u8> {
+    type Item = u8;
+
+    fn insert(&mut self, item: Self::Item) {
+        self.items.push(item);
+    }
+
+    fn remove(&mut self) -> Option<Self::Item> {
+        if self.items.is_empty() {
+            return Option::None
+        }
+        let deleted = self.items.pop();
+        deleted
+    }
+
+    fn is_empty(&self) -> bool {
+        return self.items.is_empty()
+    }
 }
 
 //TODO implement Container for Stack
@@ -161,7 +194,7 @@ mod tests {
         let y = 8u8;
     
         // Draw x.
-        draw_with_box(__);
+        draw_with_box(Box::new(x));
     
         // Draw y.
         draw_with_ref(&y);
